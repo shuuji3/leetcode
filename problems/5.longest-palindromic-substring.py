@@ -32,17 +32,20 @@
 #
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        substrings = sorted(self.create_substrings(s), key=lambda x: len(x), reverse=True)
-        for substring in substrings:
+        for substring in self.create_substrings(s):
             if self.is_palindrome(substring):
                 return substring
         return ''
 
     def create_substrings(self, s: str):
         length = len(s)
-        for i in range(length):
-            for j in range(i, length):
-                yield s[i:j + 1]
+        for substring_length in range(length, 0, -1):  # [3, 2, 1] if s == 'aba'
+            i = 0
+            j = substring_length
+            while j < length + 1:
+                yield s[i:j]
+                i += 1
+                j += 1
 
     def is_palindrome(self, substring: str) -> bool:
         i = 0
