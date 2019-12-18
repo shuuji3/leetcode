@@ -48,11 +48,10 @@ class Solution:
                 j += 1
 
     def is_palindrome(self, substring: str) -> bool:
-        i = 0
-        j = len(substring) - 1
-        while i < j:
-            if substring[i] != substring[j]:
+        center_index = len(substring) // 2
+        first_part = substring[:center_index + 1]  # 'abc' for 'abcde'
+        last_part = reversed(substring[center_index:])  # 'edc' for 'abcde'
+        for c1, c2 in zip(first_part, last_part):
+            if c1 != c2:
                 return False
-            i += 1
-            j -= 1
         return True
